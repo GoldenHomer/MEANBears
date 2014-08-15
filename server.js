@@ -61,6 +61,14 @@ router.route('/bears/:bear_id')
 				err ? res.send(err) : res.json({message: 'Bear updated.'});
 			});
 		});
+	})
+
+	.delete(function(req, res){
+		Bear.remove({
+			_id: req.params.bear_id
+		}, function(err, bear){
+			err ? res.send(err) : res.json({message: 'Bear has been destroyed.'});
+		});
 	});
 
 // END OF ROUTES
