@@ -33,20 +33,33 @@ router.route('/bears')
 
 		bear.save(function(err){
 			err ? res.send(err) : res.json({message: 'Bear created'}); // I like to use ternary when possible
-		})
+		});
 	})
+
 	// Get bears
 	.get(function(req, res){
 		Bear.find(function(err, bears){
 			err ? res.send(err) : res.json(bears);
-		})
+		});
 	});
+
+	//update the bear that has a unique ID.
 
 router.route('/bears/:bear_id')
 
 	.get(function(req, res){
 		Bear.findById(req.params.bear_id, function(err, bear){
 			err ? res.send(err) : res.json(bear);
+		});
+	})
+
+	.put(function(req, res){
+		Bear.findById(req.params.bear_id, function(err, bear){
+			err ? res.send(err) : bear.name = req.body.name; // Where the update occurs.
+		
+			bear.save(function(err){
+				err ? res.send(err) : res.json({message: 'Bear updated.'});
+			});
 		});
 	});
 
